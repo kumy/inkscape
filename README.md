@@ -2,14 +2,19 @@
 Convertes files in `.ai`, `.pdf` and `.eps` format to `.svg` images using
 Ghostscript and Inkscape. Based on [Inkscape as a service](https://github.com/as-a-service/inkscape).
 
-### URL parameters:
+### POST parameters:
 
 * `file`: input file added as `multipart/form-data`
 
-## Running the server locally
+## Running the server locally (docker)
 
 * Build with `docker build . -t inkscape`
 * Start with `docker run -p 1234:8080 inkscape`
+* Open in your browser at `http://localhost:1234"`
+
+## Running the server locally (docker-compose)
+
+* Run/Build using `docker-compose up --build`
 * Open in your browser at `http://localhost:1234"`
 
 ## Deploy to Google Cloud
