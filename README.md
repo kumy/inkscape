@@ -19,4 +19,4 @@ Ghostscript and Inkscape. Based on [Inkscape as a service](https://github.com/as
 
 ## Deploy to Google Cloud
 
-[![Run on Google Cloud](https://storage.googleapis.com/cloudrun/button.svg)](https://deploy.cloud.run)
+[![Run on Google Cloud](https://storage.googleapis.com/cloudrun/button.svg)](https://deploy.cloud.run/?git_repo=https://github.com/theveloped/inkscape.git)
