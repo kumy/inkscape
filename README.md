@@ -9,13 +9,13 @@ Ghostscript and Inkscape. Based on [Inkscape as a service](https://github.com/as
 ## Running the server locally (docker)
 
 * Build with `docker build . -t inkscape`
-* Start with `docker run -p 1234:8080 inkscape`
-* Open in your browser at `http://localhost:1234"`
+* Start with `docker run -p 8080:8080 inkscape`
+* Open in your browser at `http://localhost:8080"`
 
 ## Running the server locally (docker-compose)
 
 * Run/Build using `docker-compose up --build`
-* Open in your browser at `http://localhost:1234"`
+* Open in your browser at `http://localhost:8080"`
 
 ## Deploy to Google Cloud
 
