@@ -3,29 +3,109 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Convert .svg to .png</title>
-    <link rel="stylesheet" href="https://unpkg.com/awsm.css/dist/awsm.min.css">
+    <script src="/static/dropzone.min.js"></script>
 </head>
 
 <body>
     <header>
-        <h1>Convert <code>.svg</code> to <code>.png</code></h1>
+        <h1>Convert <code>.AI/.EPS/.PDF</code> to <code>.SVG</code></h1>
         <p>
-            This service converts SVG images to PNG images.
+            This service converts AI, EPS and PDF images to SVG images.
         </p>
     </header>
     <main>
-        <form method="post" enctype=multipart/form-data> 
-            <label for="file">Upload your file</label>
-            <input type="file" name="file" id="file">
-            <input type="submit" value="Upload">
-        </form>
+        <div class="container">
+            <div id="dropzone" class="zone">
+                <div class="dz-message" >
+                    Drop files here or click to upload.
+                </div>
+            </div>
+
+            <div id="preview-template" class="dz-preview dz-file-preview" style="display: none;">
+                <div class="dz-details">
+                    <div class="dz-filename"><span data-dz-name></span></div>
+                    <div class="dz-size" data-dz-size></div>
+                </div>
+            </div>
+
+            <div id="viewer">
+            </div>
+        </div>
     </main>
+
     <footer>
-        <p><b>Pro tip:</b> You can also provide the URL of a document to convert with the <code>url</code> query
-            parameter.
-            <br>
-            For example <a href="/?url=https://upload.wikimedia.org/wikipedia/commons/f/fd/Ghostscript_Tiger.svg">/?url=https://upload.wikimedia.org/wikipedia/commons/f/fd/Ghostscript_Tiger.svg</a>
-        </p>
-        <p>Made by <a href="https://twitter.com/steren">@steren</a> - Sources on <a href="https://github.com/as-a-service/inkscape">GitHub</a></p>
+        <p><b>API usage:</b></p>
+        <p>Simply send a <b>POST</b> request with the input file added as a <br>
+            <b>multipart/form-data</b> with the parameter name <b>file</b> and you will <br>
+            receive the converted file in return as an SVG file.
+        <p>Based on <a href="https://github.com/as-a-service/inkscape">SVG to PNG converter</a> by <a href="https://twitter.com/steren">@steren</a><br>
+            Source <a href="https://github.com/as-a-service/inkscape">GitHub</a></p>
     </footer>
 </body>
+
+<script type="text/javascript">
+  var dropzone = new Dropzone('#dropzone', {
+  previewTemplate: document.querySelector('#preview-template').innerHTML,
+  parallelUploads: 1,
+  uploadMultiple: false,
+  maxFiles: 1,
+  url: "/",
+  success : function(file, response){
+        this.removeFile(file);
+        document.querySelector('#viewer').innerHTML = response;
+        // document.querySelector('#viewer').className += "zone";
+  },
+  error : function(file, error){
+        this.removeFile(file);
+        var reg = new RegExp('(^| )zone($| )','g');
+        document.querySelector('#viewer').innerHTML = "";
+        // document.querySelector('#viewer').className.replace(reg,' ');
+  }
+});
+</script>
+
+<style type="text/css">
+body {
+    background: rgb(243, 244, 245);
+    height: 100%;
+    color: rgb(100, 108, 127);
+    line-height: 1.4rem;
+    font-family: Roboto, "Open Sans", sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    text-rendering: optimizeLegibility;
+    text-align: center;
+}
+
+h1 { text-align: center; }
+
+.dz-message {
+    padding: 20px;
+}
+
+.container {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.zone {
+    background: white;
+    border-radius: 5px;
+    border: 2px dashed rgb(100, 108, 127);
+    max-width: 100%;
+}
+
+#dropzone {
+    padding: 40px;
+}
+
+#viewer {
+    margin-top: 20px;
+}
+
+#viewer svg {
+    width: 100%;
+    height: auto;
+}
+</style>

@@ -4,11 +4,13 @@ ENV APP_HOME /app
 WORKDIR $APP_HOME
 
 RUN apk add inkscape \
-        build-base \ 
+        build-base \
         # Install fonts
         msttcorefonts-installer fontconfig && \
     update-ms-fonts && \
     fc-cache -f
+
+RUN apk add ghostscript-fonts ghostscript
 
 RUN pip install Flask requests gevent
 COPY . $APP_HOME

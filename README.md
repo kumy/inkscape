@@ -1,25 +1,17 @@
-# Inkscape as a service
-
-A simple web service that transforms the given SVG file into the desired format. 
-
-Run with `docker run -p 8080:8080 gcr.io/as-a-service-dev/inkscape`
+# AI, PDF and EPS to SVG converter
+Convertes files in `.ai`, `.pdf` and `.eps` format to `.svg` images using
+Ghostscript and Inkscape. Based on [Inkscape as a service](https://github.com/as-a-service/inkscape).
 
 ### URL parameters:
 
-* `input`: URL of the document to transform.
+* `file`: input file added as `multipart/form-data`
 
 ## Running the server locally
 
 * Build with `docker build . -t inkscape`
-* Start with `docker run -p 8080:8080 inkscape`
-* Open in your browser at `http://localhost:8080"/?url=https://upload.wikimedia.org/wikipedia/commons/f/fd/Ghostscript_Tiger.svg`
-
-## Deploy to your server
-
-The following container image always reflects the latest version of the `master` branch of this repo: `gcr.io/as-a-service-dev/inkscape`
+* Start with `docker run -p 1234:8080 inkscape`
+* Open in your browser at `http://localhost:1234"`
 
 ## Deploy to Google Cloud
 
 [![Run on Google Cloud](https://storage.googleapis.com/cloudrun/button.svg)](https://deploy.cloud.run)
-
-Or use `gcloud beta run deploy --image gcr.io/as-a-service-dev/inkscape`
