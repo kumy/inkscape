@@ -40,6 +40,17 @@ def convert_file(input_file_path, output_dir, output_file_path):
         call('inkscape --file %s --export-plain-svg %s --without-gui' %
             (temp_file_path, output_file_path), shell=True)
 
+    else:
+        work_dir = os.path.dirname(output_file_path)
+
+        call('tracespace %s --noBoard --out %s' %
+            (input_file_path, work_dir), shell=True)
+
+        for file_name in os.listdir(work_dir):
+            if file_name.endswith(".svg"):
+                os.rename(os.path.join(work_dir, file_name), output_file_path)
+                break
+
 
 @app.route('/', methods=['GET', 'POST'])
 def api():
@@ -69,9 +80,9 @@ def api():
         input_extension = file.filename.rsplit('.', 1)[1].lower()
         input_file_path = os.path.join(work_dir.name, 'input.' + input_extension)
 
-        if not input_extension in ALLOWED_EXTENSIONS:
-            logging.error("Unsupported file extension")
-            abort(400)
+        # if not input_extension in ALLOWED_EXTENSIONS:
+        #     logging.error("Unsupported file extension")
+        #     abort(400)
 
         # Store input file to disk
         file.save(input_file_path)

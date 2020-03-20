@@ -13,6 +13,11 @@ RUN apk add inkscape \
 RUN apk add ghostscript-fonts ghostscript
 
 RUN pip install Flask requests gevent
+
+RUN apk add --update nodejs npm
+RUN npm install -g @tracespace/cli
+RUN tracespace -h
+
 COPY . $APP_HOME
 
 CMD ["python", "inkscape.py"]
