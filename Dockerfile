@@ -5,6 +5,7 @@ WORKDIR $APP_HOME
 
 RUN apk add inkscape \
         build-base \
+        libffi-dev \
         # Install fonts
         msttcorefonts-installer fontconfig && \
     update-ms-fonts && \
